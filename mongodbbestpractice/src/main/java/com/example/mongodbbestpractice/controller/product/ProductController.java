@@ -1,12 +1,15 @@
 package com.example.mongodbbestpractice.controller.product;
 
+import com.example.mongodbbestpractice.dto.command.AddProductCommandDTO;
 import com.example.mongodbbestpractice.model.product.Product;
+import com.example.mongodbbestpractice.model.product.ProductType;
+import com.example.mongodbbestpractice.model.product.active.Credit;
+import com.example.mongodbbestpractice.model.product.passive.CurrentAccount;
+import com.example.mongodbbestpractice.model.product.passive.SavingAccount;
 import com.example.mongodbbestpractice.service.product.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @RestController
@@ -33,10 +36,46 @@ public class ProductController {
 */
 
     @RequestMapping(value = "save",method = RequestMethod.POST)     // or user @GetMapping
-    public Product save(@RequestBody Product product){ // postman --> body(json)
+    public Product save(@RequestBody AddProductCommandDTO product){ // postman --> body(json)
         log.info("Save product in db");
         //product.setDateOfBirth(LocalDateTime.now());
-        return productService.saveProduct(product);
+       //builder en lombok
+        Product p = new Product();
+
+
+        if (product.getType()== ProductType.CurrentAccount){
+             CurrentAccount c = new CurrentAccount();
+            c.setType(product.getType());
+            c.setIdClient(product.getIdClient());
+            c.setDescription(product.getDescription());
+            c.setBenefits(product.getBenefits());
+            c.setConsiderations(product.getConsiderations());
+            c.setValueCurrentAccount(product.getValueCurrentAccount());
+            return productService.saveProduct(c);
+        }
+        else if (product.getType()== ProductType.SavingAccount){
+            SavingAccount c = new SavingAccount();
+            c.setType(product.getType());
+            c.setIdClient(product.getIdClient());
+            c.setDescription(product.getDescription());
+            c.setBenefits(product.getBenefits());
+            c.setConsiderations(product.getConsiderations());
+            c.setValueSavingAccount(product.getValueSavingAccount());
+            return productService.saveProduct(c);
+
+        }
+        else if (product.getType()== ProductType.Credit){
+
+            Credit c = new Credit();
+            c.setType(product.getType());
+            c.setIdClient(product.getIdClient());
+            c.setDescription(product.getDescription());
+            c.setBenefits(product.getBenefits());
+            c.setConsiderations(product.getConsiderations());
+            return productService.saveProduct(c);
+        }
+
+        return null ;
     }
 
 

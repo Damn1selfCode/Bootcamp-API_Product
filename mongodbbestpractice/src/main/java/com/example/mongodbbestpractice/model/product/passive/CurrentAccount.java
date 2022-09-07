@@ -3,16 +3,30 @@ import com.example.mongodbbestpractice.model.IBankingFunctions;
 import com.example.mongodbbestpractice.model.product.IStrategyProductPassive;
 import com.example.mongodbbestpractice.model.product.Product;
 import com.example.mongodbbestpractice.model.product.ProductType;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 
 
-@Setter
+
 public class CurrentAccount extends Product implements IStrategyProductPassive, IBankingFunctions {
 
     ArrayList<String> idSignatories;
     ArrayList<String> idHolders;
+
+
+
+    int valueCurrentAccount;
+
+    public int getValueCurrentAccount() {
+        return valueCurrentAccount;
+    }
+
+    public void setValueCurrentAccount(int valueCurrentAccount) {
+        this.valueCurrentAccount = valueCurrentAccount;
+    }
+
 
     public CurrentAccount(ArrayList<String> idSignatories,ArrayList<String> idHolders) {
         super();

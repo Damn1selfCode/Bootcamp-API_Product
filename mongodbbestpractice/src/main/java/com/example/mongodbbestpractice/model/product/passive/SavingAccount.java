@@ -3,9 +3,16 @@ import com.example.mongodbbestpractice.model.IBankingFunctions;
 import com.example.mongodbbestpractice.model.product.IStrategyProductPassive;
 import com.example.mongodbbestpractice.model.product.Product;
 import com.example.mongodbbestpractice.model.product.ProductType;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class SavingAccount extends Product implements IStrategyProductPassive , IBankingFunctions {
 
+
+
+    int valueSavingAccount;
 
     @Override
     public ProductType getType() {
